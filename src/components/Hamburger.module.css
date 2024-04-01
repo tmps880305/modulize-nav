@@ -1,0 +1,177 @@
+/*
+  * Developer: Randy @ TCS
+  * Email: jeni.wang@tcs.com
+  * Date: Jan, 2024
+*/
+
+/* Hamburger Menu */
+/*
+  The below CSS is for the hamburger menu
+
+*/
+.hamburger-nav {
+    width: 100%;
+    height: 100%;
+    background-color: var(--wh-prim);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/**/
+
+/* Wrap the hamburger icon so that the entire area could be clicked */
+.hamburger-wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* The hamburger menu icon */
+.hamburger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: -20px;
+    width: 25px;
+    height: 8px;
+}
+
+.line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--grey-sec);
+    transition: transform 0.2s ease;
+}
+
+.line-1 {
+    transform: translateY(0px);
+}
+
+.line-2 {
+    transform: translateY(8px);
+}
+
+.line-3 {
+    transform: translateY(16px);
+}
+
+/* Reshape into X shape after clicked */
+.open .line-1 {
+    transform: translateY(8px) rotate(-45deg);
+}
+
+.open .line-2 {
+    opacity: 0;
+}
+
+.open .line-3 {
+    transform: translateY(3px) rotate(45deg);
+}
+
+/**/
+
+/* Dropdown menu after hamburger clicked */
+.menu {
+    width: 40%;
+    height: 100%;
+    background-color: var(--grey-prim);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: fixed;
+    top: var(--nav-width);
+    right: 0;
+    display: none;
+    opacity: 0;
+    flex-direction: column;
+    text-align: center;
+    z-index: 1;
+}
+
+.open .menu {
+    animation-name: swipeIn;
+    animation-duration: .5s;
+    display: flex;
+    opacity: 1;
+}
+
+@keyframes swipeIn {
+    /* Swipe in animation for menu block */
+    0% {
+        transform: translateX(100px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+
+.menu li {
+    height: 80px;
+    cursor: pointer;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu li:hover {
+    background-color: var(--grey-sec);
+}
+
+.menu li:hover .navlink {
+    color: var(--or-prim);
+}
+
+.menu .navlink {
+    text-decoration: none;
+}
+
+.menu .navlink {
+    align-self: flex-start;
+    margin-left: 25px;
+    cursor: pointer;
+}
+
+
+.menu-bkg {
+    /* The translucent mask to cover contents when menu opened */
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--blk-prim);
+    opacity: 0.5;
+    position: fixed;
+    top: var(--nav-width);
+    right: 0;
+    z-index: 1;
+}
+
+/**/
+
+@media only screen and (max-width: 768px) {
+    .menu {
+        width: 100%;
+    }
+
+    .open .menu {
+        animation-name: swipeDown;
+    }
+
+    @keyframes swipeDown {
+        /* Swipe in animation for menu block */
+        0% {
+            transform: translateY(-100px);
+        }
+        100% {
+            transform: translateY(0px);
+        }
+    }
+
+    .menu .navlink {
+        align-self: center;
+    }
+}

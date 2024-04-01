@@ -1,7 +1,6 @@
 import React from "react";
 import {Outlet} from "react-router-dom";
-import Header from "../Layout/Header";
-import Footer from "../Layout/Footer";
+import Header from "../Header";
 
 const RootLayout = () => {
     const NAV_DATA = [
@@ -94,7 +93,6 @@ const RootLayout = () => {
         <main>
             <Outlet/>
         </main>
-        <Footer navLinks={NAV_DATA}/>
     </>
 };
 export default RootLayout;

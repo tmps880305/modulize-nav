@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
-import logoImg from '../../assets/logo.png';
-import logoImgSm from '../../assets/logo_img.png';
+import logoImg from '../assets/logo.svg';
 import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
-import Button from "../UI/Button";
-import Hamburger from "../UI/Hamburger";
-import useWindowSize from "../hooks/use-windowsize";
+import Button from "./Button";
+import Hamburger from "./Hamburger";
+import useWindowSize from "./hooks/use-windowsize";
 
 const Header = (props) => {
     const [scrollState, setScrollState] = useState('top');
@@ -30,7 +29,7 @@ const Header = (props) => {
                 }
 
                 if (width > 1366) {
-                    setLogoSrc(logoImgSm);
+                    setLogoSrc(logoImg);
                 }
 
             } else {

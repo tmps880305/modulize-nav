@@ -3,12 +3,11 @@ import React, {useEffect, useState} from 'react';
 import logoImg from '../assets/logo.svg';
 import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
-import Button from "./Button";
-import Hamburger from "./Hamburger";
 import useWindowSize from "./hooks/use-windowsize";
 
 const Header = (props) => {
     const [scrollState, setScrollState] = useState('top');
+    const [isBurgerOpen, setIsBurgerOpen] = useState(false);
     const [logoSrc, setLogoSrc] = useState(logoImg);
     const {width} = useWindowSize();
     const navLinks = props.navLinks;
@@ -44,43 +43,69 @@ const Header = (props) => {
     }, [width]);
 
 
+    const onHamburgerClick = () => {
+        setIsBurgerOpen(!isBurgerOpen);
+    }
+
+
     return (<header className={classes.header} data-scroll={scrollState}>
         <div className={classes.headerContainer}>
             <div className={classes.logoContainer}>
                 <NavLink className={classes.logo} to="">
-                    <img src={logoSrc} alt="Company name: Chirogate."/>
+                    <img src={logoSrc} alt="Company name."/>
+                    <h4>Reactnav</h4>
                 </NavLink>
             </div>
 
-            <nav className={classes.navbar}>
-                <ul className={classes.navlist}>
-                    {navLinks.map(navLink => (
-                            <li key={navLink.label.main} className={classes.navlistli}>
-                                <div className={classes.dropWrap}>
-                                    <NavLink className={classes.navlink}
-                                             to={navLink.label.dest} state={navLink.label.state}
-                                    > {
-                                        navLink.label.main !== "Contact" ? (width > 1366 ? navLink.label.main : navLink.label.alt) :
-                                            (<Button className={classes.navBut}>{navLink.label.main}</Button>)
-                                    } </NavLink>
-                                    {navLink.subLabel.length > 0 &&
-                                        <ul key={navLink.label} className={classes.dropContent}>
-                                            {navLink.subLabel.map(sub =>
-                                                (<li key={sub.main} className={classes.droplist}>
-                                                        <NavLink className={classes.droplink} to={navLink.label.dest}
-                                                                 state={sub.state}>{width > 1366 ? sub.main : sub.alt}</NavLink>
-                                                    </li>
-                                                ))}
-                                        </ul>}
-                                </div>
-                            </li>
-                        )
-                    )}
+            <nav className={`${classes.navbar} ${isBurgerOpen && classes.open}`}>
+                <div className={classes.hamburgerWrap} onClick={onHamburgerClick}>
+                    <div className={classes.hamburgerMenu}>
+                        <div className={`${classes.line} ${classes['line-1']}`}></div>
+                        <div className={`${classes.line} ${classes['line-2']}`}></div>
+                        <div className={`${classes.line} ${classes['line-3']}`}></div>
+                    </div>
+                </div>
+                <div className={`${isBurgerOpen && classes['menu-bkg']}`} onClick={onHamburgerClick}></div>
+
+                <ul className={width > 1200 ? classes.navlist : classes.menu}>
+                    {navLinks.map((nav, index) => (
+                        <li key={index} className={`${classes.navlistli} ${classes.isHamb}`}>
+                            <NavLink className={classes.navlink}
+                                     to={nav.label.dest}
+                                     onClick={onHamburgerClick}
+                                     state={nav.label.state}
+                            >{nav.label.alt}
+                            </NavLink></li>
+                    ))}
                 </ul>
             </nav>
-            <div className={classes.burgerContainer}>
-                <Hamburger scrollState={scrollState} navLinks={navLinks}/>
-            </div>
+
+            {/*<nav className={classes.navbar}>*/}
+            {/*    <ul className={classes.navlist}>*/}
+            {/*        {navLinks.map(navLink => (*/}
+            {/*                <li key={navLink.label.main} className={classes.navlistli}>*/}
+            {/*                    <div className={classes.dropWrap}>*/}
+            {/*                        <NavLink className={classes.navlink}*/}
+            {/*                                 to={navLink.label.dest} state={navLink.label.state}*/}
+            {/*                        > {width > 1366 ? navLink.label.main : navLink.label.alt} </NavLink>*/}
+            {/*                        {navLink.subLabel.length > 0 &&*/}
+            {/*                            <ul key={navLink.label} className={classes.dropContent}>*/}
+            {/*                                {navLink.subLabel.map(sub =>*/}
+            {/*                                    (<li key={sub.main} className={classes.droplist}>*/}
+            {/*                                            <NavLink className={classes.droplink} to={navLink.label.dest}*/}
+            {/*                                                     state={sub.state}>{width > 1366 ? sub.main : sub.alt}</NavLink>*/}
+            {/*                                        </li>*/}
+            {/*                                    ))}*/}
+            {/*                            </ul>}*/}
+            {/*                    </div>*/}
+            {/*                </li>*/}
+            {/*            )*/}
+            {/*        )}*/}
+            {/*    </ul>*/}
+            {/*</nav>*/}
+            {/*<div className={classes.burgerContainer}>*/}
+            {/*    <Hamburger scrollState={scrollState} navLinks={navLinks}/>*/}
+            {/*</div>*/}
         </div>
     </header>)
 };

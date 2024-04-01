@@ -39,19 +39,17 @@ const Hamburger = (props) => {
             </div>
             <div className={`${isBurgerOpen && classes['menu-bkg']}`} onClick={onHamburgerClick}></div>
 
-            {/*<div className={classes.menu}>*/}
-                <ul className={classes['menu']}>
-                    {navLinks.map((nav, index) => (
-                        <li key={index}>
-                            <NavLink className={classes.navlink}
-                                     to={nav.label.dest}
-                                     onClick={onHamburgerNavClick}
-                                     state={nav.label.state}
-                            >{nav.label.alt}
-                            </NavLink></li>
-                    ))}
-                </ul>
-            {/*</div>*/}
+            <ul className={classes['menu']}>
+                {navLinks.map((nav, index) => (
+                    <li key={index}>
+                        <NavLink className={classes.navlink}
+                                 to={nav.label.dest}
+                                 onClick={onHamburgerNavClick}
+                                 state={nav.label.state}
+                        >{nav.label.alt}
+                        </NavLink></li>
+                ))}
+            </ul>
         </nav>
     )
 };

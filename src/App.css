@@ -46,6 +46,7 @@ p {
 a {
   font-size: var(--a-size);
   color: var(--blk-prim);
+  text-decoration: none;
 }
 
 button {
@@ -74,7 +75,6 @@ button {
   font-style: normal;
   font-weight: 300;
 }
-
 
 /* CSS for Table */
 table {

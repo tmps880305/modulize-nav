@@ -5,6 +5,8 @@ import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import useWindowSize from "./hooks/use-windowsize";
 
+const LG_SCREEN_STRESHHOLD = 1200;
+
 const Header = (props) => {
     const [scrollState, setScrollState] = useState('top');
     const [isBurgerOpen, setIsBurgerOpen] = useState(false);
@@ -67,15 +69,27 @@ const Header = (props) => {
                 </div>
                 <div className={`${isBurgerOpen && classes['menu-bkg']}`} onClick={onHamburgerClick}></div>
 
-                <ul className={width > 1200 ? classes.navlist : classes.menu}>
+                <ul className={width > LG_SCREEN_STRESHHOLD ? classes.navlist : classes.menu}>
                     {navLinks.map((nav, index) => (
                         <li key={index} className={`${classes.navlistli} ${classes.isHamb}`}>
-                            <NavLink className={classes.navlink}
-                                     to={nav.label.dest}
-                                     onClick={onHamburgerClick}
-                                     state={nav.label.state}
-                            >{nav.label.alt}
-                            </NavLink></li>
+                            <div className={width > LG_SCREEN_STRESHHOLD ? classes.dropWrap : ''}>
+                                <NavLink className={classes.navlink}
+                                         to={nav.label.dest}
+                                         onClick={onHamburgerClick}
+                                         state={nav.label.state}
+                                >{nav.label.alt}
+                                </NavLink>
+                                {nav.subLabel.length > 0 &&
+                                    <ul key={nav.label} className={classes.dropContent}>
+                                        {nav.subLabel.map(sub =>
+                                            (<li key={sub.main} className={classes.droplist}>
+                                                    <NavLink className={classes.droplink} to={nav.label.dest}
+                                                             state={sub.state}>{width > 1366 ? sub.main : sub.alt}</NavLink>
+                                                </li>
+                                            ))}
+                                    </ul>}
+                            </div>
+                        </li>
                     ))}
                 </ul>
             </nav>

@@ -129,7 +129,7 @@
 }
 
 .dropWrap .dropContent {
-    width: 100%;
+    width: 120%;
     margin-top: calc(0.4 * var(--nav-width));
     /*margin-top: 25px;*/
     padding: 20px 20px;

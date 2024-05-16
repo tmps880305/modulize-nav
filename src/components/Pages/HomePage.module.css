@@ -1,0 +1,20 @@
+.ttl {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.mySelect {
+    width: 100px;
+    height: 40px;
+    padding: 10px;
+}
+
+.mySelect:disabled {
+    background-color: white; /* Gray background */
+    color: black; /* Darker text color to indicate it's disabled */
+    border: none;
+    appearance: none;
+    cursor: pointer;
+}
+
